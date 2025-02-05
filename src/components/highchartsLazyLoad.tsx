@@ -1,4 +1,5 @@
 /* eslint-disable react/display-name */
+/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import type HighchartsReact from "highcharts-react-official";
 import React from "react";
