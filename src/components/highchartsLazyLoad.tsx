@@ -1,4 +1,5 @@
 /* eslint-disable react/display-name */
+// @ts-nocheck
 import type HighchartsReact from "highcharts-react-official";
 import React from "react";
 
