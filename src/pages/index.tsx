@@ -15,12 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 // This type does not represent the whole objects streamed.
-type Event = {
-  id: number;
-  timestamp: number;
-};
+// type Event = {
+//   id: number;
+//   timestamp: number;
+// };
 
 export default function Home() {
+  /*
   const updateStatistics = async (media: string, timestamp: number) => {
     const response = await fetch("http://localhost:3000/api/updateStatistics", {
       method: "POST",
@@ -32,7 +33,9 @@ export default function Home() {
     const data = await response.json();
     console.log(data);
   };
+  */
 
+  /*
   const readStream = async () => {
     const response = await fetch("https://stream.upfluence.co/stream", {
       headers: {
@@ -65,6 +68,7 @@ export default function Home() {
       }
     }
   };
+  */
 
   // useEffect(() => {
   //   const callReadStream = async () => await readStream();

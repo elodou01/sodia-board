@@ -1,9 +1,11 @@
+/* eslint-disable react/display-name */
 import type HighchartsReact from "highcharts-react-official";
 import React from "react";
 
-export function withSuspense(fallback: NonNullable<React.ReactNode> | null) {
+function withSuspense(fallback: NonNullable<React.ReactNode> | null) {
   // Using an arrow function is not the best of ideas because TypeScript tries to parse the generic parameter as JSX.
   // Its easier to just use an anonymous function.
+  /* eslint-disable-next-line @typescript-eslint/no-empty-object-type */
   return function Component<P extends {}, TRef>(
     WrappedComponent: React.ComponentType<P>
   ) {
@@ -21,7 +23,6 @@ export const Highcharts = withSuspense("loading")(
 
     return Promise.all([
       import("highcharts-react-official"),
-      //   import("highcharts/modules/heatmap"),
       import("highcharts/highcharts-more"),
       import("highcharts/modules/accessibility"),
     ]).then(([{ default: HighchartsReact }]) => {
