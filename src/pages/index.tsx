@@ -1,4 +1,4 @@
-import Head from "next/head";
+import { Chart } from "@/components/Chart";
 import styles from "@/styles/Home.module.css";
 import { Geist, Geist_Mono } from "next/font/google";
 import Head from "next/head";
@@ -106,6 +106,7 @@ export default function Home() {
             <img src="/facebook.png" className={styles.socialMediaLogo} />
             <img src="/article.png" className={styles.socialMediaLogo} />
           </div>
+          <Chart />
         </main>
       </div>
     </>
