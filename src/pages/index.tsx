@@ -1,8 +1,11 @@
 import { Chart } from "@/components/Chart";
+import { ChartSelection } from "@/components/ChartSelection";
 import styles from "@/styles/Home.module.css";
+import { MediaType } from "@/types/MediaType";
+import { SodiaStatistics } from "@/types/SodiaStatistics";
 import { Geist, Geist_Mono } from "next/font/google";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +24,10 @@ const geistMono = Geist_Mono({
 // };
 
 export default function Home() {
+  const [sodiaStatistics, setSodiaStatistics] = useState<SodiaStatistics[]>([]);
+  const [activeChartMedia, setActiveChartMedia] = useState<MediaType>(
+    MediaType.InstagramMedia
+  );
   /*
   const updateStatistics = async (media: string, timestamp: number) => {
     const response = await fetch("http://localhost:3000/api/updateStatistics", {
@@ -79,7 +86,7 @@ export default function Home() {
     const getStatistics = async () => {
       const response = await fetch("http://localhost:3000/api/getStatistics");
       const data = await response.json();
-      console.log(data);
+      setSodiaStatistics(data.result);
     };
     getStatistics();
   }, []);
@@ -102,15 +109,11 @@ export default function Home() {
           <div className={styles.subtitle}>
             Select a social media to see live usage
           </div>
-          <div className={styles.logos}>
-            <img src="/instagram.png" className={styles.socialMediaLogo} />
-            <img src="/youtube.png" className={styles.socialMediaLogo} />
-            <img src="/pinterest.png" className={styles.socialMediaLogo} />
-            <img src="/tiktok.png" className={styles.socialMediaLogo} />
-            <img src="/facebook.png" className={styles.socialMediaLogo} />
-            <img src="/article.png" className={styles.socialMediaLogo} />
-          </div>
-          <Chart />
+          <ChartSelection
+            activeChartMedia={activeChartMedia}
+            setActiveChartMedia={setActiveChartMedia}
+          />
+          <Chart sodiaStatistics={sodiaStatistics} media={activeChartMedia} />
         </main>
       </div>
     </>

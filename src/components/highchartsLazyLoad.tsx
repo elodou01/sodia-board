@@ -28,7 +28,6 @@ export const Highcharts = withSuspense("loading")(
       import("highcharts/highcharts-more"),
       import("highcharts/modules/accessibility"),
     ]).then(([{ default: HighchartsReact }]) => {
-      console.log(highcharts);
       return createHighchartsReactModule({ HighchartsReact, highcharts });
     });
   })

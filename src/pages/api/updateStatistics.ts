@@ -19,7 +19,7 @@ export default async function handler(
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  const weekday = Weekday[date.getDay()];
+  const weekday = Object.values(Weekday)[date.getDay()];
   const hour = date.getHours();
   const media = payload.media;
 

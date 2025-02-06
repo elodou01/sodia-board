@@ -6,17 +6,6 @@
   font-size: 30px;
 }
 
-.logos {
-  display: flex;
-  gap:20px;
-}
-
-.socialMediaLogo {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-}
-
 .page {
   --gray-rgb: 255, 255, 255;
     --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
