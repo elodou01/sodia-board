@@ -69,13 +69,14 @@ export default function Home() {
 
     while (!isEndOfStream) {
       try {
-        // Issue here !!! Infinite loop if browser is manually refreshed
         const { value, done } = await reader.read();
         isEndOfStream = done;
         const data = decoder.decode(value);
         const jsonString = data.split(/data: (.*)/)[1];
 
-        if (!jsonString) return;
+        // Since the max size of a chunk is 4082, we ignore streamed data that is too large
+        // We could merge the consecutive large chunks to avoid loosing data.
+        if (!jsonString || jsonString.length > 4081) return;
 
         const json = JSON.parse(jsonString);
         const eventType = Object.keys(json)[0];
