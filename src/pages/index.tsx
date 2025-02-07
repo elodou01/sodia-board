@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const STREAM_URL = "https://stream.upfluence.co/stream";
+
 // This type does not represent the whole objects streamed.
 type Event = {
   id: number;
@@ -33,13 +36,13 @@ export default function Home() {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:3000/api/getStatistics",
+    `${BASE_URL}/api/getStatistics`,
     fetcher,
     { refreshInterval: 1000 }
   );
 
   const updateStatistics = async (media: string, timestamp: number) => {
-    const response = await fetch("http://localhost:3000/api/updateStatistics", {
+    const response = await fetch(`${BASE_URL}/api/updateStatistics`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +53,7 @@ export default function Home() {
   };
 
   const readStream = async () => {
-    const response = await fetch("https://stream.upfluence.co/stream", {
+    const response = await fetch(STREAM_URL, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -92,8 +95,7 @@ export default function Home() {
 
   useEffect(() => {
     const getStatistics = async () => {
-      // Here use env variable to access DB when deployed
-      const response = await fetch("http://localhost:3000/api/getStatistics");
+      const response = await fetch(`${BASE_URL}/api/getStatistics`);
       const data = await response.json();
       setSodiaStatistics(data.result);
     };
