@@ -9,15 +9,15 @@ type Props = {
 };
 
 export const Chart = ({ sodiaStatistics, media }: Props) => {
-  const initialCounts = new Array(7).fill(0).map(() => new Array(24).fill(0));
+  const dataMatrix = new Array(7).fill(0).map(() => new Array(24).fill(0));
   sodiaStatistics
     .filter((statistics) => statistics.media === media)
     .map((stat) => {
-      initialCounts[Object.keys(Weekday).indexOf(stat.weekday)][stat.hour] +=
+      dataMatrix[Object.keys(Weekday).indexOf(stat.weekday)][stat.hour] +=
         stat.count;
     });
 
-  const bubbleData = initialCounts.flatMap((dayCounts, dayIndex) =>
+  const bubbleData = dataMatrix.flatMap((dayCounts, dayIndex) =>
     dayCounts.map((count, hourIndex) => ({
       x: hourIndex,
       y: dayIndex,
@@ -25,7 +25,9 @@ export const Chart = ({ sodiaStatistics, media }: Props) => {
     }))
   );
 
-  const heatMapData = initialCounts.flatMap((dayCounts, dayIndex) =>
+  const numberOfPosts = bubbleData.reduce((n, { z }) => n + z, 0);
+
+  const heatMapData = dataMatrix.flatMap((dayCounts, dayIndex) =>
     dayCounts.map((count, hourIndex) => [hourIndex, dayIndex, count])
   );
 
@@ -38,7 +40,7 @@ export const Chart = ({ sodiaStatistics, media }: Props) => {
       enabled: false,
     },
     title: {
-      text: "Social media posts by weekday and hour ",
+      text: `Social media posts by weekday and hour: ${numberOfPosts} posts`,
     },
     xAxis: {
       gridLineWidth: 1,
@@ -116,7 +118,7 @@ export const Chart = ({ sodiaStatistics, media }: Props) => {
       plotBorderWidth: 1,
     },
     title: {
-      text: "Social media posts by weekday and hour",
+      text: `Social media posts by weekday and hour: ${numberOfPosts} posts`,
     },
     xAxis: {
       gridLineWidth: 1,
