@@ -6,6 +6,7 @@ import { SodiaStatistics } from "@/types/SodiaStatistics";
 import { Geist, Geist_Mono } from "next/font/google";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,10 +19,10 @@ const geistMono = Geist_Mono({
 });
 
 // This type does not represent the whole objects streamed.
-// type Event = {
-//   id: number;
-//   timestamp: number;
-// };
+type Event = {
+  id: number;
+  timestamp: number;
+};
 
 export default function Home() {
   const [sodiaStatistics, setSodiaStatistics] = useState<SodiaStatistics[]>([]);
@@ -29,7 +30,14 @@ export default function Home() {
     MediaType.InstagramMedia
   );
 
-  /*
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+  const { data, error, isLoading } = useSWR(
+    "http://localhost:3000/api/getStatistics",
+    fetcher,
+    { refreshInterval: 1000 }
+  );
+
   const updateStatistics = async (media: string, timestamp: number) => {
     const response = await fetch("http://localhost:3000/api/updateStatistics", {
       method: "POST",
@@ -38,8 +46,7 @@ export default function Home() {
       },
       body: JSON.stringify({ media, timestamp }),
     });
-    const data = await response.json();
-    console.log(data);
+    await response.json();
   };
 
   const readStream = async () => {
@@ -49,12 +56,12 @@ export default function Home() {
       },
     });
 
-    const data = response.body;
+    const readableStream = response.body;
     const decoder = new TextDecoder();
 
-    if (!data) return;
+    if (!readableStream) return;
 
-    const reader = data.getReader();
+    const reader = readableStream.getReader();
     let isEndOfStream = false;
 
     while (!isEndOfStream) {
@@ -64,9 +71,12 @@ export default function Home() {
         isEndOfStream = done;
         const data = decoder.decode(value);
         const jsonString = data.split(/data: (.*)/)[1];
+
+        if (!jsonString) return;
+
         const json = JSON.parse(jsonString);
         const eventType = Object.keys(json)[0];
-        const eventInfo: Event = Object.values(json)[0] as any;
+        const eventInfo = Object.values(json)[0] as Event;
         // Add 000 to add milliseconds to timestamp
         await updateStatistics(eventType, eventInfo.timestamp * 1000);
       } catch (e) {
@@ -79,7 +89,6 @@ export default function Home() {
     const callReadStream = async () => await readStream();
     callReadStream();
   }, []);
-  */
 
   useEffect(() => {
     const getStatistics = async () => {
@@ -90,6 +99,11 @@ export default function Home() {
     };
     getStatistics();
   }, []);
+
+  useEffect(() => {
+    if (isLoading || error || !data.result) return;
+    setSodiaStatistics(data.result);
+  }, [data, isLoading, error]);
 
   return (
     <>
