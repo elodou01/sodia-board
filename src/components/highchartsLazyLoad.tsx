@@ -26,6 +26,7 @@ export const Highcharts = withSuspense("loading")(
     return Promise.all([
       import("highcharts-react-official"),
       import("highcharts/highcharts-more"),
+      import("highcharts/modules/heatmap"),
       import("highcharts/modules/accessibility"),
     ]).then(([{ default: HighchartsReact }]) => {
       return createHighchartsReactModule({ HighchartsReact, highcharts });

@@ -9,13 +9,25 @@ type Props = {
 };
 
 export const Chart = ({ sodiaStatistics, media }: Props) => {
-  const chartData = sodiaStatistics
+  const initialCounts = new Array(7).fill(0).map(() => new Array(24).fill(0));
+  sodiaStatistics
     .filter((statistics) => statistics.media === media)
-    .map((stat) => ({
-      x: stat.hour,
-      y: Object.keys(Weekday).indexOf(stat.weekday),
-      z: stat.count,
-    }));
+    .map((stat) => {
+      initialCounts[Object.keys(Weekday).indexOf(stat.weekday)][stat.hour] +=
+        stat.count;
+    });
+
+  const bubbleData = initialCounts.flatMap((dayCounts, dayIndex) =>
+    dayCounts.map((count, hourIndex) => ({
+      x: hourIndex,
+      y: dayIndex,
+      z: count,
+    }))
+  );
+
+  const heatMapData = initialCounts.flatMap((dayCounts, dayIndex) =>
+    dayCounts.map((count, hourIndex) => [hourIndex, dayIndex, count])
+  );
 
   const optionsBubble = {
     chart: {
@@ -24,6 +36,84 @@ export const Chart = ({ sodiaStatistics, media }: Props) => {
     },
     legend: {
       enabled: false,
+    },
+    title: {
+      text: "Social media posts by weekday and hour ",
+    },
+    xAxis: {
+      gridLineWidth: 1,
+      title: {
+        enabled: false,
+      },
+      labels: {
+        format: "{value}h",
+      },
+      categories: [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+      ],
+    },
+    yAxis: {
+      startOnTick: false,
+      endOnTick: false,
+      title: {
+        enabled: false,
+      },
+      reversed: true,
+      labels: {
+        format: "{value}",
+      },
+      categories: ["Mon", "Tues", "Wednes", "Thurs", "Fri", "Satur", "Sun"],
+    },
+    tooltip: {
+      useHTML: true,
+      headerFormat: "<table>",
+      pointFormat:
+        "<tr><th>Weekday: </th><td>{point.y}</td></tr>" +
+        "<tr><th>Hour: </th><td>{point.x}h</td></tr>" +
+        "<tr><th>Number of posts: </th><td>{point.z}</td></tr>",
+      footerFormat: "</table>",
+      followPointer: true,
+    },
+    plotOptions: {
+      bubble: {
+        minSize: 1,
+        maxSize: "10%",
+      },
+    },
+    series: [
+      {
+        data: bubbleData,
+      },
+    ],
+  };
+
+  const optionsHeatMap = {
+    chart: {
+      type: "heatmap",
+      plotBorderWidth: 1,
     },
     title: {
       text: "Social media posts by weekday and hour",
@@ -64,23 +154,14 @@ export const Chart = ({ sodiaStatistics, media }: Props) => {
       ],
     },
     yAxis: {
-      startOnTick: false,
-      endOnTick: false,
       title: {
         text: "Weekday",
       },
+      reversed: true,
       labels: {
         format: "{value}",
       },
-      categories: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
+      categories: ["Mon", "Tues", "Wednes", "Thurs", "Fri", "Satur", "Sun"],
       maxPadding: 0.2,
     },
     tooltip: {
@@ -93,21 +174,26 @@ export const Chart = ({ sodiaStatistics, media }: Props) => {
       footerFormat: "</table>",
       followPointer: true,
     },
-    plotOptions: {
-      series: {
-        dataLabels: {
-          enabled: true,
-          format: "{point.z}",
-        },
-      },
+    colorAxis: {
+      min: 0,
+      minColor: "#FFFFFF",
+      maxColor: "#470063",
     },
     series: [
       {
-        data: chartData,
-        colorByPoint: false,
+        data: heatMapData,
+        dataLabels: {
+          enabled: true,
+          color: "#000000",
+        },
       },
     ],
   };
 
-  return <Highcharts options={optionsBubble} />;
+  return (
+    <>
+      <Highcharts options={optionsHeatMap} />
+      <Highcharts options={optionsBubble} />
+    </>
+  );
 };

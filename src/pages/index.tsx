@@ -28,6 +28,7 @@ export default function Home() {
   const [activeChartMedia, setActiveChartMedia] = useState<MediaType>(
     MediaType.InstagramMedia
   );
+
   /*
   const updateStatistics = async (media: string, timestamp: number) => {
     const response = await fetch("http://localhost:3000/api/updateStatistics", {
@@ -40,9 +41,7 @@ export default function Home() {
     const data = await response.json();
     console.log(data);
   };
-  */
 
-  /*
   const readStream = async () => {
     const response = await fetch("https://stream.upfluence.co/stream", {
       headers: {
@@ -75,15 +74,16 @@ export default function Home() {
       }
     }
   };
-  */
 
-  // useEffect(() => {
-  //   const callReadStream = async () => await readStream();
-  //   callReadStream();
-  // }, []);
+  useEffect(() => {
+    const callReadStream = async () => await readStream();
+    callReadStream();
+  }, []);
+  */
 
   useEffect(() => {
     const getStatistics = async () => {
+      // Here use env variable to access DB when deployed
       const response = await fetch("http://localhost:3000/api/getStatistics");
       const data = await response.json();
       setSodiaStatistics(data.result);
