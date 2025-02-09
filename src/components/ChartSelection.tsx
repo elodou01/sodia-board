@@ -1,4 +1,4 @@
-import { MediaType } from "@/types/MediaType";
+import { MediaType } from "@/common/MediaType";
 import { LogoButton } from "./LogoButton";
 
 import styles from "../styles/ChartSelection.module.css";

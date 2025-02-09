@@ -1,4 +1,4 @@
-import { SodiaStatistics } from "@/types/SodiaStatistics";
+import { SodiaStatistics } from "@/common/SodiaStatistics";
 import { neon } from "@neondatabase/serverless";
 import { NextApiRequest, NextApiResponse } from "next";
 

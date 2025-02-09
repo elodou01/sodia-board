@@ -1,6 +1,6 @@
-import { MediaType } from "@/types/MediaType";
-import { SodiaStatistics } from "@/types/SodiaStatistics";
-import { Weekday } from "@/types/Weekday";
+import { MediaType } from "@/common/MediaType";
+import { SodiaStatistics } from "@/common/SodiaStatistics";
+import { Weekday } from "@/common/Weekday";
 import { Highcharts } from "./highchartsLazyLoad";
 
 type Props = {

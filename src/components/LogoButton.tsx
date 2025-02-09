@@ -1,4 +1,4 @@
-import { MediaType } from "@/types/MediaType";
+import { MediaType } from "@/common/MediaType";
 
 import styles from "../styles/LogoButton.module.css";
 

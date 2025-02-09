@@ -1,5 +1,5 @@
-import { SodiaStatistics } from "@/types/SodiaStatistics";
-import { Weekday } from "@/types/Weekday";
+import { SodiaStatistics } from "@/common/SodiaStatistics";
+import { Weekday } from "@/common/Weekday";
 import { neon } from "@neondatabase/serverless";
 import { NextApiRequest, NextApiResponse } from "next";
 
