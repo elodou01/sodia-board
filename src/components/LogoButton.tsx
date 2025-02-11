@@ -4,14 +4,14 @@ import styles from "../styles/LogoButton.module.css";
 
 type Props = {
   media: MediaType;
-  activeChartMedia: MediaType;
-  setActiveChartMedia(activeChartMedia: MediaType): void;
+  activeChartMedia?: MediaType;
+  setActiveChartMedia?(activeChartMedia: MediaType): void;
 };
 
 export const LogoButton = ({
   media,
   activeChartMedia,
-  setActiveChartMedia,
+  setActiveChartMedia = () => {},
 }: Props) => {
   return (
     <img

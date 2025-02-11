@@ -49,7 +49,7 @@ export default function Home() {
       >
         <main className={styles.main}>
           <div className={styles.title}>
-            Welcome to your social media dashboards
+            Welcome to your social media dashboard
           </div>
           <div className={styles.subtitle}>
             Select a social media to see live usage
@@ -58,8 +58,13 @@ export default function Home() {
             activeChartMedia={activeChartMedia}
             setActiveChartMedia={setActiveChartMedia}
           />
+          <Link
+            href={{ pathname: "/details", query: { name: activeChartMedia } }}
+          >
+            See more details
+          </Link>
           <Chart sodiaStatistics={sodiaStatistics} media={activeChartMedia} />
-          <div>If the charts update stops, refresh the browser.</div>
+          <div>If the chart update stops, refresh the browser.</div>
         </main>
       </div>
     </>
