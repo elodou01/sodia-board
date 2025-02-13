@@ -15,6 +15,7 @@ export const LogoButton = ({
 }: Props) => {
   return (
     <img
+      data-testid={`logobutton-${media}`}
       style={{
         backgroundColor: activeChartMedia === media ? "#BCE7FD" : "transparent",
       }}
