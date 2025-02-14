@@ -15,14 +15,20 @@ export const Switch = ({
 }: Props) => {
   return (
     <div className={styles.switchWithLabels}>
-      <label htmlFor="switch" style={{ opacity: checked ? "0.7" : "1" }}>
+      <label
+        htmlFor="switch"
+        style={{ opacity: checked ? "0.7" : "1", cursor: "pointer" }}
+      >
         {optionLeft}
       </label>
       <label className={styles.switch}>
         <input id="switch" type="checkbox" onClick={() => onClick(!checked)} />
         <span className={styles.slider} />
       </label>
-      <label htmlFor="switch" style={{ opacity: checked ? "1" : "0.7" }}>
+      <label
+        htmlFor="switch"
+        style={{ opacity: checked ? "1" : "0.7", cursor: "pointer" }}
+      >
         {optionRight}
       </label>
     </div>

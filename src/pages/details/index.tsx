@@ -39,7 +39,7 @@ export default function Details() {
         />
       </Link>
       <div className={styles.title}>
-        <LogoButton media={media} /> <p>{media}</p>
+        <LogoButton media={media} /> <p className={styles.media}>{media}</p>
       </div>
       <div className={styles.content}>
         <Switch

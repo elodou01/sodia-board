@@ -13,14 +13,14 @@
     margin-bottom: 30px;
     font-weight: bold;
 
-    p {
-        font-size: 70px;
-        background-image: linear-gradient(#2a72e6, #e67df0);
-        color: transparent;
-        background-clip: text;
-    }
 }
 
+p.sodia {
+    font-size: 70px;
+    background-image: linear-gradient(#2a72e6, #e67df0);
+    color: transparent;
+    background-clip: text;
+}
 
 
 .subtitle {

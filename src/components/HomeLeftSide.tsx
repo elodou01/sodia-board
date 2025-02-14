@@ -6,7 +6,7 @@ export const HomeLeftSide = () => {
   return (
     <div className={styles.side}>
       <div className={styles.title}>
-        Welcome to your <p>social media</p> dashboard
+        Welcome to your <p className={styles.sodia}>social media</p> dashboard
       </div>
       <div className={styles.subtitle}>
         Want to see live usage of your favorite social media?

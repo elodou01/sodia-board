@@ -13,13 +13,14 @@
     gap:20px;
     margin-bottom: 50px;
 
-    p {
-            font-size: 50px;
-            background-image: linear-gradient(#2a72e6, #e67df0);
-            color: transparent;
-            background-clip: text;
-        }
 }
+
+p.media {
+        font-size: 50px;
+        background-image: linear-gradient(#2a72e6, #e67df0);
+        color: transparent;
+        background-clip: text;
+    }
 
 .backButton {
     padding: 3px;

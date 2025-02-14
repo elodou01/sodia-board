@@ -4,10 +4,6 @@
     gap: 10px;
     align-items: center;
     justify-content: center;
-
-    label {
-        cursor: pointer;
-    }
 }
 
 .switch {
