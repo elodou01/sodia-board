@@ -1,0 +1,14 @@
+.button {
+    background-color: var(--secondary);
+    padding:10px;
+    min-width: 50px;
+    min-height: 40px;
+    border-radius: 20px;
+    color:white;
+    border: none;
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:5px;
+}

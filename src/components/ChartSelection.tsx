@@ -13,7 +13,7 @@ export const ChartSelection = ({
   setActiveChartMedia,
 }: Props) => {
   return (
-    <div className={styles.logos}>
+    <div className={styles.chartSelection}>
       <LogoButton
         media={MediaType.InstagramMedia}
         activeChartMedia={activeChartMedia}

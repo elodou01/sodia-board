@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import { LogoButton } from "@/components/LogoButton";
+import { Switch } from "@/components/Switch";
+import Image from "next/image";
 import styles from "../../styles/Details.module.css";
 
 export default function Details() {
@@ -29,22 +31,31 @@ export default function Details() {
   return (
     <div className={styles.details}>
       <Link href="/">
-        <img className={styles.backButton} src="back-button.png"></img>
+        <Image
+          src="/back-button.png"
+          alt="back button"
+          width={40}
+          height={40}
+        />
       </Link>
-      <LogoButton media={media} />
-      <div className={styles.switchWithLabels}>
-        <div style={{ opacity: isHeatmap ? "0.7" : "1" }}>Bubble</div>
-        <label className={styles.switch}>
-          <input type="checkbox" onClick={() => setIsHeatmap(!isHeatmap)} />
-          <span className={styles.slider} />
-        </label>
-        <div style={{ opacity: isHeatmap ? "1" : "0.7" }}>Heatmap</div>
+      <div className={styles.title}>
+        <LogoButton media={media} /> <p>{media}</p>
       </div>
-      <Chart
-        sodiaStatistics={sodiaStatistics}
-        media={media}
-        isHeatmap={isHeatmap}
-      />
+      <div className={styles.content}>
+        <Switch
+          onClick={setIsHeatmap}
+          checked={isHeatmap}
+          optionLeft="Bubble"
+          optionRight="Heatmap"
+        />
+        <div className={styles.chart}>
+          <Chart
+            sodiaStatistics={sodiaStatistics}
+            media={media}
+            isHeatmap={isHeatmap}
+          />
+        </div>
+      </div>
     </div>
   );
 }

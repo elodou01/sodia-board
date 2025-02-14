@@ -1,5 +1,5 @@
 import { MediaType } from "@/common/MediaType";
-
+import Image from "next/image";
 import styles from "../styles/LogoButton.module.css";
 
 type Props = {
@@ -14,13 +14,16 @@ export const LogoButton = ({
   setActiveChartMedia = () => {},
 }: Props) => {
   return (
-    <img
+    <Image
+      src={`/${media}.png`}
       data-testid={`logobutton-${media}`}
+      alt={`${media} logo`}
+      width={40}
+      height={40}
+      className={styles.socialMediaLogo}
       style={{
         backgroundColor: activeChartMedia === media ? "#BCE7FD" : "transparent",
       }}
-      src={`${media}.png`}
-      className={styles.socialMediaLogo}
       onClick={() => setActiveChartMedia(media)}
     />
   );

@@ -1,12 +1,15 @@
 import { MediaType } from "@/common/MediaType";
 import { SodiaStatistics } from "@/common/SodiaStatistics";
+import { Button } from "@/components/Button";
 import { Chart } from "@/components/Chart";
 import { ChartSelection } from "@/components/ChartSelection";
+import { HomeLeftSide } from "@/components/HomeLeftSide";
 import { useChartSWR } from "@/methods/useChartSWR";
 import { useUpdateChartsEffect } from "@/methods/useUpdateChartsEffect";
 import styles from "@/styles/Home.module.css";
 import { Geist, Geist_Mono } from "next/font/google";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -48,23 +51,33 @@ export default function Home() {
         className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
       >
         <main className={styles.main}>
-          <div className={styles.title}>
-            Welcome to your social media dashboard
+          <HomeLeftSide />
+          <div className={styles.side}>
+            <div className={styles.chartSelection}>
+              <ChartSelection
+                activeChartMedia={activeChartMedia}
+                setActiveChartMedia={setActiveChartMedia}
+              />
+              <Link
+                href={{
+                  pathname: "/details",
+                  query: { name: activeChartMedia },
+                }}
+              >
+                <Button label="Media details" />
+              </Link>
+            </div>
+            <Chart sodiaStatistics={sodiaStatistics} media={activeChartMedia} />
+            <div className={styles.information}>
+              <Image
+                src="/info.png"
+                alt="information icon"
+                width={15}
+                height={15}
+              />
+              If the chart update stops, refresh the browser.
+            </div>
           </div>
-          <div className={styles.subtitle}>
-            Select a social media to see live usage
-          </div>
-          <ChartSelection
-            activeChartMedia={activeChartMedia}
-            setActiveChartMedia={setActiveChartMedia}
-          />
-          <Link
-            href={{ pathname: "/details", query: { name: activeChartMedia } }}
-          >
-            See more details
-          </Link>
-          <Chart sodiaStatistics={sodiaStatistics} media={activeChartMedia} />
-          <div>If the chart update stops, refresh the browser.</div>
         </main>
       </div>
     </>

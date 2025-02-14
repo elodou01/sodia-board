@@ -20,5 +20,6 @@ export const useUpdateChartsEffect = (
       setSodiaStatistics(data.result);
     };
     getStatistics();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
